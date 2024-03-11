@@ -64,10 +64,12 @@ public class LinkedListDeque<T> {
         sensinel.next = first;
         size++;
     }
-    public void removeFirst() {
+    public T removeFirst() {
+        T tmp = sensinel.next.item;
         sensinel.next = sensinel.next.next;
         sensinel.next.next.prev = sensinel;
         size--;
+        return tmp;
     }
     public void addLast(T i) {
         IntNode<T> last = new IntNode<T>(i, sensinel.prev, sensinel);
@@ -75,10 +77,12 @@ public class LinkedListDeque<T> {
         sensinel.next.prev = last;
         size++;
     }
-    public void removeLast() {
+    public T removeLast() {
+        T tmp = sensinel.next.item;
         sensinel.prev.prev.next = sensinel;
         sensinel.prev = sensinel.prev.prev;
         size--;
+        return tmp;
     }
     public T get(int index) {
         int i = 0;

@@ -39,18 +39,20 @@ public class ArrayDeque<T> {
         arr[nextLast++] = i;
         size++;
     }
-    public void removeFirst() {
-        nextFirst++;
+    public T removeFirst() {
+        T tmp = arr[nextFirst++];
         size--;
         if (size < allocatedSize / 4) {
             sizeSmaller();
         }
+        return tmp;
     }
-    public void removeLast() {
-        nextLast--;
+    public T removeLast() {
+        T tmp = arr[nextLast--];
         size--;
         if (size < allocatedSize / 4) {
             sizeSmaller();
         }
+        return tmp;
     }
 }
