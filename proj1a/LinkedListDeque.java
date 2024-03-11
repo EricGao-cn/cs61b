@@ -1,10 +1,10 @@
 public class LinkedListDeque<T> {
-    private static class IntNode<T>{
+    private static class IntNode<T> {
         public T item;
         public IntNode<T> prev;
         public IntNode<T> next;
 
-        public IntNode(T i, IntNode<T> p, IntNode<T> n){
+        public IntNode(T i, IntNode<T> p, IntNode<T> n) {
             item = i;
             prev = p;
             next = n;
@@ -14,21 +14,21 @@ public class LinkedListDeque<T> {
     private int size;
     private IntNode<T> sensinel;
 
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         size = 0;
-        sensinel= new IntNode<T>(null, null, null);
+        sensinel = new IntNode<T>(null, null, null);
         sensinel.next = sensinel;
         sensinel.prev = sensinel;
     }
 
-    public LinkedListDeque(T i){
-        size = 1;
-        sensinel = new IntNode<T>(null, null, null);
-        sensinel.next = new IntNode<T>(i, sensinel, sensinel);
-        sensinel.prev = sensinel.next;
-    }
+//    public LinkedListDeque(T i) {
+//        size = 1;
+//        sensinel = new IntNode<T>(null, null, null);
+//        sensinel.next = new IntNode<T>(i, sensinel, sensinel);
+//        sensinel.prev = sensinel.next;
+//    }
 
-    public LinkedListDeque(LinkedListDeque<T> other) {
+    private LinkedListDeque(LinkedListDeque<T> other) {
         size = other.size;
         sensinel = new IntNode<T>(null, null, null);
         IntNode<T> p = sensinel.next;
@@ -99,10 +99,11 @@ public class LinkedListDeque<T> {
 
     public T getRecursive(int index) {
         IntNode<T> p = sensinel.next;
-        if (index == 0) { return p.item; }
+        if (index == 0) {
+            return p.item;
+        }
         LinkedListDeque<T> copy = new LinkedListDeque<T>(this);
         copy.removeFirst();
-        return copy.getRecursive(index-1);
+        return copy.getRecursive(index - 1);
     }
-
 }

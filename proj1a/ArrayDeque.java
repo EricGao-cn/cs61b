@@ -5,7 +5,7 @@ public class ArrayDeque<T> {
     private int nextFirst = allocatedSize / 2 - 1;
     private int nextLast = allocatedSize / 2;
 
-    public void sizeLarger() {
+    private void sizeLarger() {
         allocatedSize *= 2;
         T[] newArr = (T[]) new Object[allocatedSize];
         System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
@@ -13,7 +13,7 @@ public class ArrayDeque<T> {
         nextFirst = allocatedSize / 2 - 1;
         nextLast = allocatedSize / 2 + size;
     }
-    public void sizeSmaller() {
+    private void sizeSmaller() {
         allocatedSize /= 2;
         T[] newArr = (T[]) new Object[allocatedSize];
         System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
@@ -22,8 +22,12 @@ public class ArrayDeque<T> {
         nextLast = allocatedSize / 2 + size;
     }
 
-    public int size() { return size;}
-    public T get(int index) { return arr[nextFirst + index +1]; }
+    public int size() {
+        return size;
+    }
+    public T get(int index) {
+        return arr[nextFirst + index +1];
+    }
     public boolean isEmpty() { return size == 0; }
     public void addFirst(T i) {
         if (size >= allocatedSize / 2) {
@@ -54,5 +58,11 @@ public class ArrayDeque<T> {
             sizeSmaller();
         }
         return tmp;
+    }
+    public void printDeque() {
+        int i = nextFirst + 1;
+        while (i < nextLast) {
+            System.out.print(arr[i] + " ");
+        }
     }
 }
