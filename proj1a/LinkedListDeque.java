@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     private static class IntNode<T> {
-        public T item;
-        public IntNode<T> prev;
-        public IntNode<T> next;
+        private T item;
+        private IntNode<T> prev;
+        private IntNode<T> next;
 
         public IntNode(T i, IntNode<T> p, IntNode<T> n) {
             item = i;
@@ -73,14 +73,14 @@ public class LinkedListDeque<T> {
     }
     public void addLast(T i) {
         IntNode<T> last = new IntNode<T>(i, sensinel.prev, sensinel);
-        sensinel.next.prev.next = last;
-        sensinel.next.prev = last;
+        sensinel.prev.next = last;
+        sensinel.prev = last;
         size++;
     }
     public T removeLast() {
         T tmp = sensinel.prev.item;
-        sensinel.prev.prev.next = sensinel;
         sensinel.prev = sensinel.prev.prev;
+        sensinel.prev.prev.next = sensinel;
         size--;
         return tmp;
     }
@@ -107,3 +107,4 @@ public class LinkedListDeque<T> {
         return copy.getRecursive(index - 1);
     }
 }
+
