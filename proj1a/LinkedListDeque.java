@@ -45,6 +45,9 @@ public class LinkedListDeque<T> {
 
 
     public int size() {
+        if (size <= 0) {
+            return 0;
+        }
         return size;
     }
     public boolean isEmpty() {
@@ -80,7 +83,7 @@ public class LinkedListDeque<T> {
     public T removeLast() {
         T tmp = sensinel.prev.item;
         sensinel.prev = sensinel.prev.prev;
-        sensinel.prev.prev.next = sensinel;
+        sensinel.prev.next = sensinel;
         size--;
         return tmp;
     }
