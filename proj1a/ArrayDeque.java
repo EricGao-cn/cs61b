@@ -26,9 +26,11 @@ public class ArrayDeque<T> {
         return size;
     }
     public T get(int index) {
-        return arr[nextFirst + index +1];
+        return arr[nextFirst + index + 1];
     }
-    public boolean isEmpty() { return size == 0; }
+    public boolean isEmpty() {
+        return size == 0;
+    }
     public void addFirst(T i) {
         if (size >= allocatedSize / 2) {
             sizeLarger();

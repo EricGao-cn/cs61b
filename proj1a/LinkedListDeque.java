@@ -44,7 +44,7 @@ public class LinkedListDeque<T> {
     }
 
 
-    public int size(){
+    public int size() {
         return size;
     }
     public boolean isEmpty() {
@@ -78,7 +78,7 @@ public class LinkedListDeque<T> {
         size++;
     }
     public T removeLast() {
-        T tmp = sensinel.next.item;
+        T tmp = sensinel.prev.item;
         sensinel.prev.prev.next = sensinel;
         sensinel.prev = sensinel.prev.prev;
         size--;
@@ -91,7 +91,7 @@ public class LinkedListDeque<T> {
             p = p.next;
             i++;
         }
-        if (i != index){
+        if (i != index) {
             System.out.println("IndexOutOfRange");
         }
         return p.item;
