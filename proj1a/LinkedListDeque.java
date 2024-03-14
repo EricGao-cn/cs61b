@@ -70,7 +70,7 @@ public class LinkedListDeque<T> {
     public T removeFirst() {
         T tmp = sensinel.next.item;
         sensinel.next = sensinel.next.next;
-        sensinel.next.next.prev = sensinel;
+        sensinel.next.prev = sensinel;
         size--;
         return tmp;
     }
