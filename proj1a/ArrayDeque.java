@@ -1,10 +1,18 @@
 public class ArrayDeque<T> {
-    private int size = 0;
-    private int allocatedSize = 8;
-    private T[] arr = (T[]) new Object[allocatedSize];
-    private int nextFirst = allocatedSize / 2 - 1;
-    private int nextLast = allocatedSize / 2;
+    private int size;
+    private int allocatedSize;
+    private int nextFirst;
+    private int nextLast;
+    T[] arr;
 
+    public ArrayDeque() {
+        size = 0;
+        allocatedSize = 8;
+        nextFirst = allocatedSize / 2 - 1;
+        nextLast = allocatedSize / 2;
+        arr = (T[]) new Object[allocatedSize];
+
+    }
     private void sizeLarger() {
         allocatedSize *= 2;
         T[] newArr = (T[]) new Object[allocatedSize];
@@ -46,7 +54,7 @@ public class ArrayDeque<T> {
         size++;
     }
     public T removeFirst() {
-        T tmp = arr[nextFirst++];
+        T tmp = arr[++nextFirst];
         size--;
         if (size < allocatedSize / 4) {
             sizeSmaller();
@@ -54,7 +62,7 @@ public class ArrayDeque<T> {
         return tmp;
     }
     public T removeLast() {
-        T tmp = arr[nextLast--];
+        T tmp = arr[--nextLast];
         size--;
         if (size < allocatedSize / 4) {
             sizeSmaller();
@@ -65,6 +73,8 @@ public class ArrayDeque<T> {
         int i = nextFirst + 1;
         while (i < nextLast) {
             System.out.print(arr[i] + " ");
+            i++;
         }
+        System.out.println();
     }
 }
