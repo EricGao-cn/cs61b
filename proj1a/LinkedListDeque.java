@@ -31,11 +31,10 @@ public class LinkedListDeque<T> {
     private LinkedListDeque(LinkedListDeque<T> other) {
         size = other.size;
         sensinel = new IntNode<T>(null, null, null);
-        IntNode<T> p = sensinel.next;
-        IntNode<T> q = other.sensinel.next;
-        p = new IntNode<T>(q.item, sensinel, null);
+        IntNode<T> p = sensinel;
+        IntNode<T> q = other.sensinel;
         while (q.next != other.sensinel) {
-            p.next = new IntNode<T>(q.next.item, p, null);
+            p.next = new IntNode<>(q.next.item, p, null);
             p = p.next;
             q = q.next;
         }
@@ -59,6 +58,7 @@ public class LinkedListDeque<T> {
             System.out.print(p.item + " ");
             p = p.next;
         }
+        System.out.println();
     }
     public void addFirst(T i) {
         // sensinel.next.prev 不能直接用，可能会是空指针 改改改
