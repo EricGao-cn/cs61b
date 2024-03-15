@@ -17,10 +17,11 @@ public class ArrayDeque<T> {
         allocatedSize *= 2;
         T[] newArr = (T[]) new Object[allocatedSize];
         if (nextLast < nextFirst) {
-            System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, allocatedSize / 2 - nextFirst - 1);
-            System.arraycopy(arr, 0, newArr, allocatedSize - nextFirst - 1, size + nextFirst + 1 - allocatedSize / 2);
-        }
-        else {
+            System.arraycopy(arr, nextFirst + 1,
+                    newArr, allocatedSize / 2, allocatedSize / 2 - nextFirst - 1);
+            System.arraycopy(arr, 0,
+                    newArr, allocatedSize - nextFirst - 1, size + nextFirst + 1 - allocatedSize / 2);
+        } else {
             System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
         }
         arr = newArr;
@@ -34,10 +35,11 @@ public class ArrayDeque<T> {
         allocatedSize /= 2;
         T[] newArr = (T[]) new Object[allocatedSize];
         if (nextLast < nextFirst) {
-            System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, allocatedSize * 2 - nextFirst - 1);
-            System.arraycopy(arr, 0, newArr, allocatedSize * 5 / 2 - nextFirst - 1, size + nextFirst + 1 - allocatedSize * 2);
-        }
-        else {
+            System.arraycopy(arr, nextFirst + 1,
+                    newArr, allocatedSize / 2, allocatedSize * 2 - nextFirst - 1);
+            System.arraycopy(arr, 0,
+                    newArr, allocatedSize * 5 / 2 - nextFirst - 1, size + nextFirst + 1 - allocatedSize * 2);
+        } else {
             System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
         }
         arr = newArr;
