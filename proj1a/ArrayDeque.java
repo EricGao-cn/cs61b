@@ -1,30 +1,46 @@
+/**要写成循环的数组，不然一个数字一个数字往前移就OutOfRange了*/
 public class ArrayDeque<T> {
-    private int size;
-    private int allocatedSize;
-    private int nextFirst;
-    private int nextLast;
-    T[] arr;
+    private int size = 0;
+    private int allocatedSize = 8;
+    private T[] arr = (T[]) new Object[allocatedSize];
+    private int nextFirst = allocatedSize / 2 - 1;
+    private int nextLast = allocatedSize / 2;
 
-    public ArrayDeque() {
+    /*public ArrayDeque() {
         size = 0;
         allocatedSize = 8;
         nextFirst = allocatedSize / 2 - 1;
         nextLast = allocatedSize / 2;
         arr = (T[]) new Object[allocatedSize];
-
-    }
+    }*/
     private void sizeLarger() {
         allocatedSize *= 2;
         T[] newArr = (T[]) new Object[allocatedSize];
-        System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
+        if (nextLast < nextFirst) {
+            System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, allocatedSize / 2 - nextFirst - 1);
+            System.arraycopy(arr, 0, newArr, allocatedSize - nextFirst - 1, size + nextFirst + 1 - allocatedSize / 2);
+        }
+        else {
+            System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
+        }
         arr = newArr;
         nextFirst = allocatedSize / 2 - 1;
         nextLast = allocatedSize / 2 + size;
+
+        this.printDeque();
+        System.out.println("nextFirst:" + nextFirst + " nextLast:" + nextLast);
     }
+
     private void sizeSmaller() {
         allocatedSize /= 2;
         T[] newArr = (T[]) new Object[allocatedSize];
-        System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
+        if (nextLast < nextFirst) {
+            System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, allocatedSize * 2 - nextFirst - 1);
+            System.arraycopy(arr, 0, newArr, allocatedSize * 5 / 2 - nextFirst - 1, size + nextFirst + 1 - allocatedSize * 2);
+        }
+        else {
+            System.arraycopy(arr, nextFirst + 1, newArr, allocatedSize / 2, size);
+        }
         arr = newArr;
         nextFirst = allocatedSize / 2 - 1;
         nextLast = allocatedSize / 2 + size;
@@ -43,38 +59,43 @@ public class ArrayDeque<T> {
         if (size >= allocatedSize / 2) {
             sizeLarger();
         }
-        arr[nextFirst--] = i;
+        arr[nextFirst] = i;
+        nextFirst = (nextFirst - 1 + allocatedSize) % allocatedSize;
         size++;
     }
     public void addLast(T i) {
         if (size >= allocatedSize / 2) {
             sizeLarger();
         }
-        arr[nextLast++] = i;
+        arr[nextLast] = i;
+        nextLast = (nextLast + 1) % allocatedSize;
         size++;
     }
     public T removeFirst() {
-        T tmp = arr[++nextFirst];
+        nextFirst = (nextFirst + 1) % allocatedSize;
+        T tmp = arr[nextFirst];
         size--;
-        if (size < allocatedSize / 4) {
+        if (allocatedSize > 8 && size < allocatedSize / 4) {
             sizeSmaller();
         }
         return tmp;
     }
     public T removeLast() {
-        T tmp = arr[--nextLast];
+        nextLast = (nextLast - 1 + allocatedSize) % allocatedSize;
+        T tmp = arr[nextLast];
         size--;
-        if (size < allocatedSize / 4) {
+        if (allocatedSize > 8 && size < allocatedSize / 4) {
             sizeSmaller();
         }
         return tmp;
     }
     public void printDeque() {
-        int i = nextFirst + 1;
-        while (i < nextLast) {
+        int i = (nextFirst + 1 + allocatedSize) % allocatedSize;
+        while (i != nextLast) {
             System.out.print(arr[i] + " ");
-            i++;
+            i = (i + 1) % allocatedSize;
         }
         System.out.println();
+        System.out.println("nextFirst:" + nextFirst + " nextLast:" + nextLast + " size:" + size);
     }
 }
