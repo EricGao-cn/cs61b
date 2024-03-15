@@ -27,8 +27,7 @@ public class ArrayDeque<T> {
         nextFirst = allocatedSize / 2 - 1;
         nextLast = allocatedSize / 2 + size;
 
-        this.printDeque();
-        System.out.println("nextFirst:" + nextFirst + " nextLast:" + nextLast);
+//        this.printDeque();
     }
 
     private void sizeSmaller() {
@@ -47,10 +46,13 @@ public class ArrayDeque<T> {
     }
 
     public int size() {
+        if (size < 0) {
+            return 0;
+        }
         return size;
     }
     public T get(int index) {
-        return arr[nextFirst + index + 1];
+        return arr[(nextFirst + index + 1) % allocatedSize];
     }
     public boolean isEmpty() {
         return size == 0;
