@@ -1,5 +1,5 @@
 /**要写成循环的数组，不然一个数字一个数字往前移就OutOfRange了*/
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     private int size = 0;
     private int allocatedSize = 8;
     private T[] arr = (T[]) new Object[allocatedSize];
@@ -51,18 +51,22 @@ public class ArrayDeque<T> {
         nextLast = allocatedSize / 2 + size;
     }
 
+    @Override
     public int size() {
         if (size < 0) {
             return 0;
         }
         return size;
     }
+    @Override
     public T get(int index) {
         return arr[(nextFirst + index + 1) % allocatedSize];
     }
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
+    @Override
     public void addFirst(T i) {
         if (size >= allocatedSize / 2) {
             sizeLarger();
@@ -71,6 +75,7 @@ public class ArrayDeque<T> {
         nextFirst = (nextFirst - 1 + allocatedSize) % allocatedSize;
         size++;
     }
+    @Override
     public void addLast(T i) {
         if (size >= allocatedSize / 2) {
             sizeLarger();
@@ -79,6 +84,7 @@ public class ArrayDeque<T> {
         nextLast = (nextLast + 1) % allocatedSize;
         size++;
     }
+    @Override
     public T removeFirst() {
         nextFirst = (nextFirst + 1) % allocatedSize;
         T tmp = arr[nextFirst];
@@ -88,6 +94,7 @@ public class ArrayDeque<T> {
         }
         return tmp;
     }
+    @Override
     public T removeLast() {
         nextLast = (nextLast - 1 + allocatedSize) % allocatedSize;
         T tmp = arr[nextLast];
@@ -97,6 +104,7 @@ public class ArrayDeque<T> {
         }
         return tmp;
     }
+    @Override
     public void printDeque() {
         int i = (nextFirst + 1 + allocatedSize) % allocatedSize;
         while (i != nextLast) {

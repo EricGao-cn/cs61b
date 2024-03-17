@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T>{
     private static class IntNode<T> {
         private T item;
         private IntNode<T> prev;
@@ -43,15 +43,18 @@ public class LinkedListDeque<T> {
     }
 
 
+    @Override
     public int size() {
         if (size <= 0) {
             return 0;
         }
         return size;
     }
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
+    @Override
     public void printDeque() {
         IntNode<T> p = sensinel.next;
         while (p != sensinel) {
@@ -60,6 +63,7 @@ public class LinkedListDeque<T> {
         }
         System.out.println();
     }
+    @Override
     public void addFirst(T i) {
         // sensinel.next.prev 不能直接用，可能会是空指针 改改改
         IntNode<T> first = new IntNode<T>(i, sensinel, sensinel.next);
@@ -67,6 +71,7 @@ public class LinkedListDeque<T> {
         sensinel.next = first;
         size++;
     }
+    @Override
     public T removeFirst() {
         T tmp = sensinel.next.item;
         sensinel.next = sensinel.next.next;
@@ -74,12 +79,14 @@ public class LinkedListDeque<T> {
         size--;
         return tmp;
     }
+    @Override
     public void addLast(T i) {
         IntNode<T> last = new IntNode<T>(i, sensinel.prev, sensinel);
         sensinel.prev.next = last;
         sensinel.prev = last;
         size++;
     }
+    @Override
     public T removeLast() {
         T tmp = sensinel.prev.item;
         sensinel.prev = sensinel.prev.prev;
@@ -87,6 +94,7 @@ public class LinkedListDeque<T> {
         size--;
         return tmp;
     }
+    @Override
     public T get(int index) {
         int i = 0;
         IntNode<T> p = sensinel.next;
