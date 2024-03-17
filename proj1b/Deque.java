@@ -1,7 +1,7 @@
 public interface Deque<T> {
     public void addFirst(T item);
     public void addLast(T item);
-    public boolean isEmtpy();
+    public boolean isEmpty();
     public int size();
     public void printDeque();
     public T removeFirst();
