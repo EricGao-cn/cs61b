@@ -1,5 +1,5 @@
 /**要写成循环的数组，不然一个数字一个数字往前移就OutOfRange了*/
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T> {
     private int size = 0;
     private int allocatedSize = 8;
     private T[] arr = (T[]) new Object[allocatedSize];

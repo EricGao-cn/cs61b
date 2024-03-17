@@ -5,7 +5,7 @@ public class TestPalindrome {
     // You must use this palindrome, and not instantiate
     // new Palindromes, or the autograder might be upset.
     static Palindrome palindrome = new Palindrome();
-    static CharacterComparator cc = new OffByOne();
+    static CharacterComparator cc = new OffByN(0);
 
     @Test
     public void testWordToDeque() {
