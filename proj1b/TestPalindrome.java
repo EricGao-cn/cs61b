@@ -19,10 +19,21 @@ public class TestPalindrome {
 
     @Test
     public void testIsPalindrome() {
+        assertTrue(palindrome.isPalindrome("noon"));
+        assertTrue(palindrome.isPalindrome("aba"));
+        assertTrue(palindrome.isPalindrome("a"));
+        assertTrue(palindrome.isPalindrome(""));
+
+        assertFalse(palindrome.isPalindrome("abc"));
+        assertFalse(palindrome.isPalindrome("abbc"));
+
+
         assertTrue(palindrome.isPalindrome("noon", cc));
+        assertTrue(palindrome.isPalindrome("aba", cc));
         assertTrue(palindrome.isPalindrome("a", cc));
         assertTrue(palindrome.isPalindrome("", cc));
-        assertFalse(palindrome.isPalindrome("abc", cc));
 
+        assertFalse(palindrome.isPalindrome("abc", cc));
+        assertFalse(palindrome.isPalindrome("abbc", cc));
     }
 }
