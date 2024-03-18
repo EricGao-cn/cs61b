@@ -3,8 +3,10 @@ import static org.junit.Assert.*;
 public class TestArrayDequeGold {
     private String getErrorInfo(int actionNums, String[] actions) {
         String errorInfo = "";
-        for(int j = 0; j < actionNums; j++) {
-            errorInfo = errorInfo + actions[j] + "\n";
+        for(int j = 0; j <= actionNums; j++) {
+            if (actions[j] != null) {
+                errorInfo = errorInfo + actions[j] + "\n";
+            }
         }
         return errorInfo;
     }
@@ -12,9 +14,9 @@ public class TestArrayDequeGold {
     public void testArrayDeque() {
         StudentArrayDeque<Integer> student = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> solution = new ArrayDequeSolution<>();
-        String[] actions = new String[10];
+        String[] actions = new String[1000];
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
 
             if (numberBetweenZeroAndOne < 0.25) {
