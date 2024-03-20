@@ -13,7 +13,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Create a new ArrayRingBuffer with the given capacity.
      */
     public ArrayRingBuffer(int capacity) {
-        // TODO: Create new array with capacity elements.
+        // Create new array with capacity elements.
         //       first, last, and fillCount should all be set to 0.
         //       this.capacity should be set appropriately. Note that the local variable
         //       here shadows the field we inherit from AbstractBoundedQueue, so
@@ -59,6 +59,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     @Override
     public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Ring buffer underflow");
+        }
         return rb[first];
     }
 

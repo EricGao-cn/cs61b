@@ -1,6 +1,6 @@
 package synthesizer;
 
-import edu.princeton.cs.algs4.StdAudio;
+//import edu.princeton.cs.algs4.StdAudio;
 
 //Make sure this class is public
 public class GuitarString {
