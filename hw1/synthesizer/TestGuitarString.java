@@ -50,6 +50,20 @@ public class TestGuitarString {
         // for assertEquals(double, double)
         assertEquals(expected, s5, 0.001);
 
+        s.tic();
+        double s6 = s.sample();
+        double expected_s6 = 0.996 * 0.5 * (s2 + s3);
+        assertEquals(expected_s6, s6, 0.001);
+
+        s.tic();
+        double s7 = s.sample();
+        double expected_s7 = 0.996 * 0.5 * (s4 + s3);
+        assertEquals(expected_s7, s7, 0.001);
+
+        s.tic();
+        double s8 = s.sample();
+        double expected_s8 = 0.996 * 0.5 * (s4 + s5);
+        assertEquals(expected_s7, s7, 0.001);
     }
 
     /** Calls tests for GuitarString. */
