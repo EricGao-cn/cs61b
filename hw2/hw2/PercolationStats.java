@@ -1,7 +1,7 @@
 package hw2;
 import edu.princeton.cs.introcs.StdRandom;
 
-import java.security.spec.PSSParameterSpec;
+//import java.security.spec.PSSParameterSpec;
 
 public class PercolationStats {
     private double[] result;
@@ -38,7 +38,7 @@ public class PercolationStats {
         double sigmaSquare = 0;
         double mean = mean();
         for (double i: result) {
-            sigmaSquare += (i / length) * (i / length);
+            sigmaSquare += (i - mean) * (i - mean);
         }
         sigmaSquare /= (times - 1);
         return Math.sqrt(sigmaSquare);
