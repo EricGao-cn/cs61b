@@ -9,6 +9,9 @@ public class Percolation {
     // disjointSet 下标n*n表示虚拟的顶， 下标n*n+1表示虚拟的底
     private WeightedQuickUnionUF disjointSet;
     public Percolation(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException();
+        }
         length = n;
         openNums = 0;
         grid = new boolean[n][n];
@@ -34,16 +37,16 @@ public class Percolation {
         if (row == length - 1) {
             disjointSet.union(length * length + 1, posToNum(row, col));
         }
-        if (row - 1 >= 0 && grid[row-1][col]) {
+        if (row - 1 >= 0 && grid[row - 1][col]) {
             disjointSet.union(posToNum(row - 1, col), posToNum(row, col));
         }
-        if (row + 1 < length && grid[row+1][col]) {
+        if (row + 1 < length && grid[row + 1][col]) {
             disjointSet.union(posToNum(row + 1, col), posToNum(row, col));
         }
-        if (col - 1 >= 0 && grid[row][col-1]) {
+        if (col - 1 >= 0 && grid[row][col - 1]) {
             disjointSet.union(posToNum(row, col - 1), posToNum(row, col));
         }
-        if (col + 1 < length && grid[row][col+1]) {
+        if (col + 1 < length && grid[row][col + 1]) {
             disjointSet.union(posToNum(row, col + 1), posToNum(row, col));
         }
     }
@@ -66,6 +69,10 @@ public class Percolation {
     }
     public boolean percolates() {
         return disjointSet.connected(length * length, length * length + 1);
+    }
+
+    public static void main(String[] args) {
+        return;
     }
 
 }

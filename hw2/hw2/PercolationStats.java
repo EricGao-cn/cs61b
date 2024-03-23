@@ -6,13 +6,15 @@ import java.security.spec.PSSParameterSpec;
 public class PercolationStats {
     private int[] result;
     private int times;
+    private int length;
 
-    public PercolationStats(int N, int T, PercolationFactory pf){
-        if (N * T <= 0) {
+    public PercolationStats(int N, int T, PercolationFactory pf) {
+        if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException();
         }
         result = new int[T];
         times = T;
+        length = N;
         for (int i = 0; i < T; i++) {
             Percolation perc = pf.make(N);
             while (!perc.percolates()) {
@@ -29,14 +31,14 @@ public class PercolationStats {
         for (int i: result) {
             sum += i;
         }
-        return sum / times;
+        return sum / times / length / length;
     }
 
     public double stddev() {
         double sigmaSquare = 0;
         double mean = mean();
         for (int i: result) {
-            sigmaSquare += (i - mean) * (i - mean);
+            sigmaSquare += ((double) i / length - mean) * ((double) i / length - mean);
         }
         sigmaSquare /= (times - 1);
         return Math.sqrt(sigmaSquare);
@@ -45,17 +47,17 @@ public class PercolationStats {
     public double confidenceLow() {
         double mu = mean();
         double sigma = stddev();
-        return (mu - 1.96 * sigma / Math.sqrt(times));
+        return (mu - 1.96 * sigma / Math.sqrt(times)) * length * length;
     }
 
     public double confidenceHigh() {
         double mu = mean();
         double sigma = stddev();
-        return (mu + 1.96 * sigma / Math.sqrt(times));
+        return (mu + 1.96 * sigma / Math.sqrt(times)) * length * length;
     }
 
-//    public static void main(String[] args) {
-//        PercolationStats perc = new PercolationStats(20, 100, new PercolationFactory());
-//        System.out.println(perc.mean());
-//    }
+    public static void main(String[] args) {
+        PercolationStats perc = new PercolationStats(20, 100, new PercolationFactory());
+        System.out.println(perc.mean());
+    }
 }
