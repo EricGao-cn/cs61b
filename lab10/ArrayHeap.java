@@ -120,15 +120,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         int leftIndex = leftIndex(index);
         int rightIndex = rightIndex(index);
-        if (leftIndex > size ||rightIndex > size || min(min(leftIndex, rightIndex), index) == index) {
+        if (leftIndex > size ) {
             return;
-        }
-        if (min(leftIndex, rightIndex) == leftIndex) {
-            swap(index, leftIndex);
-            sink(leftIndex);
-        } else if (min(rightIndex, rightIndex) == rightIndex) {
-            swap(index, rightIndex);
-            sink(rightIndex);
+        } else if (rightIndex > size ) {
+            if (min(leftIndex, index) == leftIndex){
+                swap(index, leftIndex);
+            }
+            return;
+        } else {
+            if (min(min(leftIndex, rightIndex), index) == index) {
+                return;
+            }
+            if (min(leftIndex, rightIndex) == leftIndex) {
+                swap(index, leftIndex);
+                sink(leftIndex);
+            } else if (min(rightIndex, rightIndex) == rightIndex) {
+                swap(index, rightIndex);
+                sink(rightIndex);
+            }
         }
     }
 
