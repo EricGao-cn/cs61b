@@ -37,7 +37,7 @@ public class RadixSort {
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
         String[] newList = new String[asciis.length];
-        int[] counts = new int[128];
+        int[] counts = new int[260];
         int shortWords = 0;
 
         for (String item: asciis) {
