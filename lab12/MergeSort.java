@@ -1,4 +1,7 @@
 import edu.princeton.cs.algs4.Queue;
+import static org.junit.Assert.*;
+
+
 
 public class MergeSort {
     /**
@@ -35,7 +38,14 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+        Queue<Queue<Item> > res = new Queue<>();
+        Queue<Item> temp;
+        while (!items.isEmpty()) {
+            temp = new Queue<>();
+            temp.enqueue(items.dequeue());
+            res.enqueue(temp);
+        }
+        return res;
     }
 
     /**
@@ -54,13 +64,36 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
         // Your code here!
-        return null;
+        Queue<Item> res = new Queue<>();
+        while (!(q1.isEmpty() && q2.isEmpty())) {
+            res.enqueue(getMin(q1, q2));
+        }
+        return res;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+        Queue<Queue<Item> > singleItemQueues = makeSingleItemQueues(items);
+        while (singleItemQueues.size() > 1) {
+            singleItemQueues.enqueue(mergeSortedQueues(singleItemQueues.dequeue(), singleItemQueues.dequeue()));
+        }
+        return singleItemQueues.dequeue();
+    }
+
+    public static void main(String[] args) {
+        Queue<String> students = new Queue<>();
+        students.enqueue("Alice");
+        students.enqueue("Hug");
+        students.enqueue("Eric");
+        Queue<String> sortedQueue = mergeSort(students);
+
+        Queue<String> expected = new Queue<>();
+        expected.enqueue("Alice");
+        expected.enqueue("Eric");
+        expected.enqueue("Hug");
+        assertEquals(sortedQueue.toString(), expected.toString());
+
     }
 }
