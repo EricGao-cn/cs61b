@@ -38,17 +38,29 @@ public class RadixSort {
         // Optional LSD helper method for required LSD radix sort
         String[] newList = new String[asciis.length];
         int[] counts = new int[128];
+        int shortWords = 0;
 
         for (String item: asciis) {
-            counts[(int) item.charAt(index)]++;
+            if (item.length() > index) {
+                counts[(int) item.charAt(index)]++;
+            } else {
+                shortWords++;
+            }
         }
+        counts[0] += shortWords;
         for (int i = 1; i < 128; i++) {
             counts[i] += counts[i-1];
         }
         for (int i = asciis.length - 1; i >= 0; i--) {
             String item = asciis[i];
-            counts[(int) item.charAt(index)]--;
-            int pos = counts[(int) item.charAt(index)];
+            int changePos;
+            if (item.length() > index) {
+                changePos = (int) item.charAt(index);
+            } else {
+                changePos = 0;
+            }
+            counts[changePos]--;
+            int pos = counts[changePos];
             newList[pos] = item;
         }
         System.arraycopy(newList, 0, asciis, 0, newList.length);
@@ -71,10 +83,10 @@ public class RadixSort {
 
     public static void main(String[] args) {
         String[] names = new String[4];
-        names[0] = "pig";
-        names[1] = "cat";
+        names[0] = "dig";
+        names[1] = "cats";
         names[2] = "dog";
-        names[3] = "flo";
+        names[3] = "dogs";
         for (String name: names) {
             System.out.print(name + " ");
         }
