@@ -16,8 +16,16 @@ public class RadixSort {
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-        return null;
+        String[] sorted = new String[asciis.length];
+        int digits = Integer.MIN_VALUE;
+        for (int i = 0; i < asciis.length; i++) {
+            sorted[i] = asciis[i];
+            digits = digits > asciis[i].length() ? digits : asciis[i].length();
+        }
+        for (int i = digits - 1; i >= 0; i--) {
+            sortHelperLSD(sorted, i);
+        }
+        return sorted;
     }
 
     /**
@@ -28,7 +36,22 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
-        return;
+        String[] newList = new String[asciis.length];
+        int[] counts = new int[128];
+
+        for (String item: asciis) {
+            counts[(int) item.charAt(index)]++;
+        }
+        for (int i = 1; i < 128; i++) {
+            counts[i] += counts[i-1];
+        }
+        for (int i = asciis.length - 1; i >= 0; i--) {
+            String item = asciis[i];
+            counts[(int) item.charAt(index)]--;
+            int pos = counts[(int) item.charAt(index)];
+            newList[pos] = item;
+        }
+        System.arraycopy(newList, 0, asciis, 0, newList.length);
     }
 
     /**
@@ -44,5 +67,21 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void main(String[] args) {
+        String[] names = new String[4];
+        names[0] = "pig";
+        names[1] = "cat";
+        names[2] = "dog";
+        names[3] = "flo";
+        for (String name: names) {
+            System.out.print(name + " ");
+        }
+
+        String[] sortedNames = sort(names);
+        for (String name: sortedNames) {
+            System.out.print(name + " ");
+        }
     }
 }
